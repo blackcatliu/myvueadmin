@@ -74,7 +74,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- 弹窗, 新增 / 修改 -->
+    <!-- 弹窗, 新增 /  修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
