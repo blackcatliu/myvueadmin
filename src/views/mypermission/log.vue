@@ -1,5 +1,5 @@
 <template>
-  <div class="mod-log">
+  <div class="mod-log app-container">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
         <el-input v-model="dataForm.key" placeholder="用户名／用户操作" clearable></el-input>
@@ -112,8 +112,11 @@ import {
             'key': this.dataForm.key
           })
         if (data && (data.code === 0 || data.code === 200)) {
-            this.dataList = data.page.list    //todo LLL 这里返回的格式不统一，后端需要修改一下
-            this.totalPage = data.page.totalCount
+            // this.dataList = data.page.list    //todo LLL 这里返回的格式不统一，后端需要修改一下
+            // this.totalPage = data.page.totalCount
+            this.dataList = data.data.list
+            this.totalPage = data.data.totalCount
+
           } else {
             this.dataList = []
             this.totalPage = 0

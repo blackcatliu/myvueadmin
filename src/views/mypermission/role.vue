@@ -4,11 +4,7 @@
     <el-form :inline="true" :model="listQuery" @keyup.enter.native="getDataList()">
       <el-form-item>
         <!-- <el-input v-model="dataForm.roleName" placeholder="角色名称" clearable></el-input> -->
-      <el-input
-        v-model="listQuery.roleName"
-        placeholder="角色名"
-        style="width: 200px;"
-        class="filter-item"
+      <el-input v-model="listQuery.roleName" placeholder="角色名" style="width: 200px;" class="filter-item"
       />
       </el-form-item>   
       <el-form-item>

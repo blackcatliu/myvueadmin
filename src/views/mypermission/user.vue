@@ -1,5 +1,5 @@
 <template>
-  <div class="mod-user">
+  <div class="mod-user app-container">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
         <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>

@@ -90,11 +90,10 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   mypermissionRouter,
-  componentsRouter,
+  componentsRouter
   /** when your routing map is too long, you can split it into small modules **/
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
