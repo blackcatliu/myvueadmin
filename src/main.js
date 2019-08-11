@@ -14,7 +14,7 @@ import store from './store'
 import router from './router'
 
 import './icons' // icon
-import './permission' // permission control 
+import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
@@ -47,7 +47,7 @@ Vue.config.productionTip = false
 
 // 挂载全局
 Vue.prototype.$http = service // ajax请求方法
-Vue.prototype.isAuth = isAuth     // 权限方法
+Vue.prototype.isAuth = isAuth // 权限方法
 
 new Vue({
   el: '#app',

@@ -7,11 +7,12 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
+// import componentsRouter from './modules/components'
+// import accessRouter from './modules/access_control'
 // import chartsRouter from './modules/charts'
 // import tableRouter from './modules/table'
 // import nestedRouter from './modules/nested'
-import mypermissionRouter from './modules/mypermission'
+// import mypermissionRouter from './modules/mypermission'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -69,6 +70,47 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/401'),
     hidden: true
   },
+  // {
+  //   path: '/test',
+  //   component: Layout,
+  //   redirect: '/test',
+  //   children: [
+  //     {
+  //       path: 'test',
+  //       component: () => import('@/views/dashboard/index'),
+  //       name: 'test',
+  //       meta: { title: '通行权限管理', affix: true }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/equipment',
+  //   component: Layout,
+  //   redirect: '/equipment/index',
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: () => import('@/views/equipment/index'),
+  //       name: 'equipment',
+  //       meta: { title: '设备管理', affix: true }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/perm',
+  //   component: Layout,
+  //   redirect: '/perm',
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: () => import('@/views/perm/index'),
+  //       name: 'perm',
+  //       meta: { title: '管理员门禁权限', affix: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/',
     component: Layout,
@@ -82,6 +124,7 @@ export const constantRoutes = [
       }
     ]
   }
+
 ]
 
 /**
@@ -89,8 +132,10 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  mypermissionRouter,
-  componentsRouter
+  // componentsRouter,
+  // accessRouter,
+  //  equipmentRouter
+  // mypermissionRouter
   /** when your routing map is too long, you can split it into small modules **/
 
   // 404 page must be placed at the end !!!

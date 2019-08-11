@@ -11,9 +11,10 @@ const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 1000 * 30,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
-    'Content-Type': 'application/json; charset=utf-8'
+    'Content-Type': 'application/json; charset=utf-8',
+    'content-type': 'application/json; charset=utf-8'
   }
 })
 
@@ -21,8 +22,13 @@ const service = axios.create({
 service.interceptors.request.use(config => {
 // do something before request is sent
   if (store.getters.token) {
-    config.headers['X-Token'] = getToken() // 让每个请求携带token   X-token为自定义key 自行修改
-    config.headers['token'] = getToken() // 请求头带上token
+    const url = config.url
+    if (url.indexOf('cj.nwu') > -1) {
+      console.log(url)
+    } else {
+      // config.headers['X-Token'] = getToken() // 让每个请求携带token   X-token为自定义key 自行修改
+      config.headers['token'] = getToken() // 请求头带上token
+    }
   }
   return config
 },

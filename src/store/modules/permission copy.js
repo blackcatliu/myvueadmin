@@ -5,6 +5,13 @@ import Layout from '@/layout'
 
 const _import = require('@/router/import-' + process.env.NODE_ENV)
 // 主入口路由(需嵌套上左右整体布局)
+var dynamicMenuRoutesParent = {
+  path: '/sys',
+  component: Layout,
+  name: '系统管理',
+  children: []
+}
+// 主入口路由(需嵌套上左右整体布局)
 var dynamicMenuRoutes = {
   // path: '/sys',
   // component: Layout,
@@ -30,39 +37,12 @@ function fnAddDynamicMenuRoutes(menuList = []) {
   var routerArr = []
   var newRouter = {}
   for (var i = 0; i < menuList.length; i++) {
-    if ((!menuList[i].list || menuList[i].list.length === 0) && menuList[i].name) { 
+    if (menuList[i].name) {
       newRouter = {
         path: !menuList[i].url ? '/menu' + i : menuList[i].url,
-        component: Layout,
+        component: _import('publicmenu/index') || null,
         name: menuList[i].name,
-        meta: {
-          title: menuList[i].name
-        },
-        children: [
-
-        ]
-      }
-      if (menuList[i].url !== '' && !isURL(menuList[i].url)) {
-        menuList[i].url = menuList[i].url.replace(/^\//, '')
-        // var urlroot = menuList[i].url.split('/')[0]
-        // newRouter.path = urlroot
-        newRouter.children.push(
-          {
-            path: !menuList[i].url ? '/menu' + i : menuList[i].url,
-            component: _import(`${menuList[i].url}`) || null,
-            name: menuList[i].name,
-            meta: {
-              title: menuList[i].name
-            }
-          }
-        )
-      }
-    } else {
-      newRouter = {
-        path: !menuList[i].url ? '/menu' + i : menuList[i].url,
-        component: Layout,
-        name: menuList[i].name,
-        meta: {
+        meta: {             
           menuId: menuList[i].menuId,
           title: menuList[i].name,
           isDynamic: true,
@@ -70,8 +50,8 @@ function fnAddDynamicMenuRoutes(menuList = []) {
           iframeUrl: '' },
         children: []
       }
-      newRouter = fnAddDynamicMenuRoutesLoop(menuList[i], newRouter)
     }
+    newRouter = fnAddDynamicMenuRoutesLoop(menuList[i], newRouter)
     routerArr.push(newRouter)
   }
   return routerArr
@@ -188,13 +168,15 @@ const actions = {
         }
         if (data && (ret.code === 0 || ret.code === 200)) {
           dynamicMenuRoutes = fnAddDynamicMenuRoutes(data.menuList)
+          dynamicMenuRoutesParent.children = []
+          dynamicMenuRoutesParent.children = dynamicMenuRoutesParent.children.concat(dynamicMenuRoutes)
           sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]'))
           sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
         } else {
           sessionStorage.setItem('menuList', '[]')
           sessionStorage.setItem('permissions', '[]')
         }
-        accessedRoutes = accessedRoutes.concat(dynamicMenuRoutes)
+        accessedRoutes = accessedRoutes.concat(dynamicMenuRoutesParent)
         accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)
